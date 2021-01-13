@@ -25,12 +25,15 @@ def copy_rouge():
 
     if path == "":
         path = default_root
+    os.makdirs(path)
 
     rouge_data = os.path.join(path, "data")
     rouge_path = os.path.join(path, "ROUGE-1.5.5.pl")
 
     print("Copying '%s' to '%s'" % (src_rouge_root, path))
-    shutil.copytree(src_rouge_root, path)
+    # shutil.copytree(src_rouge_root, path) #this will throw errors on nfs disk like azure. https://bugs.python.org/issue24564
+    command = f"cp -r {src_rouge_root}/* {path}"
+    os.system(commnd)
 
     return {"ROUGE_path": rouge_path, "ROUGE_data": rouge_data}
 
